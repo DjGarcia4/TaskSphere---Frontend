@@ -57,7 +57,16 @@ const Project = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    socket = io(import.meta.env.VITE_BACKEND_URL);
+    socket = io(import.meta.env.VITE_BACKEND_URL, {
+      reconnectionDelay: 1000,
+      reconnection: true,
+      reconnectionAttemps: 10,
+      transports: ["websocket"],
+      agent: false,
+      upgrade: false,
+      rejectUnauthorized: false,
+    });
+
     socket.emit("openProject", params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
