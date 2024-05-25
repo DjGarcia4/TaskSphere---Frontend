@@ -11,19 +11,21 @@ const Sidebar = () => {
         // <p className="text-xl font-bold text-white">
         //   Hi: <span className="text-emerald-500">{auth.nameUser}</span> !
         // </p>
-        <p className="text-xl font-bold text-white flex gap-1">
-          Hi:
-          <AnimatedTextWord text={auth.nameUser} />!
-        </p>
+        <div>
+          <p className="text-xl font-bold text-white flex gap-1">
+            Hi:
+            <AnimatedTextWord text={auth.nameUser} />!
+          </p>
+          <Link
+            to="create-project"
+            className="uppercase w-30 text-center md:w-full bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-500 cursor-pointer transition-colors p-3 block mt-5"
+          >
+            New Project
+          </Link>
+        </div>
       ) : (
         ""
       )}
-      <Link
-        to="create-project"
-        className="uppercase w-30 text-center md:w-full bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-500 cursor-pointer transition-colors p-3 block mt-5"
-      >
-        New Project
-      </Link>
     </aside>
   );
 };

@@ -92,7 +92,31 @@ const Project = () => {
       }
     });
   });
+
   const { nameProject, tasks } = project;
+
+  // Filtrar tareas no completadas y ordenarlas por prioridad
+  const incompleteTasks =
+    tasks && Array.isArray(tasks)
+      ? tasks
+          .filter((task) => !task.state)
+          .sort((a, b) => {
+            const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+          })
+      : [];
+
+  // Filtrar tareas completadas y ordenarlas por prioridad
+  const completeTasks =
+    tasks && Array.isArray(tasks)
+      ? tasks
+          .filter((task) => task.state)
+          .sort((a, b) => {
+            const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+          })
+      : [];
+
   const { msg } = alert;
   return !charging ? (
     msg ? (
@@ -135,7 +159,7 @@ const Project = () => {
           </button>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mx-auto">
           <h1 className="text-white text-4xl font-black  mb-2">
             {nameProject}
           </h1>
@@ -214,16 +238,16 @@ const Project = () => {
           </button>
         )}
 
-        <div className=" mb-4">
+        <div className=" mb-4 flex flex-col">
           <h2 className="text-white font-bold text-3xl mb-3">Project Tasks</h2>
-          {tasks?.length ? (
+          {incompleteTasks.length ? (
             <motion.ul
-              className="container grid gap-3 md:grid-cols-2 "
+              className="container grid gap-3 md:grid-cols-2 2xl:grid-cols-3"
               variants={container}
               initial="hidden"
               animate="visible"
             >
-              {tasks.map((task) => (
+              {incompleteTasks.map((task) => (
                 <motion.li key={task._id} variants={item}>
                   <TaskPreview key={task._id} task={task} />
                 </motion.li>
@@ -234,6 +258,32 @@ const Project = () => {
               <p className="text-gray-400">
                 There are no tasks yet. If you add a task, it will be displayed
                 here
+              </p>
+            </div>
+          )}
+        </div>
+        <div className=" mb-4">
+          <h2 className="text-white font-bold text-3xl mb-3">
+            Project Tasks Done
+          </h2>
+          {completeTasks.length ? (
+            <motion.ul
+              className="container grid gap-3 md:grid-cols-2 2xl:grid-cols-3"
+              variants={container}
+              initial="hidden"
+              animate="visible"
+            >
+              {completeTasks.map((task) => (
+                <motion.li key={task._id} variants={item}>
+                  <TaskPreview key={task._id} task={task} />
+                </motion.li>
+              ))}
+            </motion.ul>
+          ) : (
+            <div className="backdrop-blur-sm bg-white/10 rounded-md p-10 text-center">
+              <p className="text-gray-400">
+                There are no tasks done yet. If you complete a task, it will be
+                displayed here
               </p>
             </div>
           )}

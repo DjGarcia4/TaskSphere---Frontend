@@ -37,8 +37,8 @@ const TaskPreview = ({ task }) => {
           } rounded-full grid place-content-end animate-ping z-10 absolute top-0 right-0 `}
         ></div>
       )}
-      <div className="backdrop-blur-sm bg-white/10 rounded-xl p-5 h-65 md:h-45  ">
-        <div className="mb-3">
+      <div className="backdrop-blur-sm bg-white/10 rounded-xl p-5 h-65 md:h-45 min-h-[210px] ">
+        <div className="mb-3 ">
           <div className="flex justify-between items-center">
             <p className="text-2xl text-white font-bold">{nameTask}</p>
             <div className="flex gap-1">
