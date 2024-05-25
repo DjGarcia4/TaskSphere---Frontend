@@ -167,7 +167,11 @@ const TaskPreview = ({ task }) => {
                   : "text-red-500"
               }`}
             >
-              {priority}
+              {priority === "Low"
+                ? "Low 😴"
+                : priority === "Medium"
+                ? "Medium 😕"
+                : "High 😱"}
             </span>
           </p>
         </div>
